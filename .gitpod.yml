@@ -1,0 +1,14 @@
+image:
+  file: Dockerfile
+checkoutLocation: chromium/src/
+ports:
+- port: 6080
+tasks:
+- command: >
+    git clone https://github.com/chromium/chromium /workspace/chromium &&
+    cd /workspace/chromium &&
+    pyenv local system &&
+    cp /workspace/chromium-gitpod/.gclient . &&
+    cd src &&
+    gclient sync &&
+    gn gen out/Default --args="enable_nacl=false"
